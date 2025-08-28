@@ -1,6 +1,6 @@
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from data import week_menu
+
 
 # Главное меню
 def main_menu_keyboard() -> InlineKeyboardMarkup:
@@ -12,6 +12,7 @@ def main_menu_keyboard() -> InlineKeyboardMarkup:
     ]
     return InlineKeyboardMarkup(inline_keyboard=keyboard)
 
+
 # Клавиатура для выбора блюда
 def choose_dish_keyboard() -> InlineKeyboardMarkup:
     buttons = []
@@ -19,6 +20,7 @@ def choose_dish_keyboard() -> InlineKeyboardMarkup:
         for dish in menu.dishes:
             buttons.append([InlineKeyboardButton(text=dish.name, callback_data=f"dish_{dish.id}")])
     return InlineKeyboardMarkup(inline_keyboard=buttons)
+
 
 # Клавиатура для блюда
 def dish_keyboard(dish_id: int) -> InlineKeyboardMarkup:

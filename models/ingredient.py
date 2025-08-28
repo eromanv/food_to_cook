@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class IngredientModel(BaseModel):
     name: str
     amount: float
@@ -9,6 +10,7 @@ class IngredientModel(BaseModel):
     protein_per_100g: float = 0.0
     fat_per_100g: float = 0.0
     carbs_per_100g: float = 0.0
+
 
 class KbhuModel(BaseModel):
     calories: float

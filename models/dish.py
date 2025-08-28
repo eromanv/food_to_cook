@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 from .ingredient import IngredientModel, KbhuModel
 
+
 class DishModel(BaseModel):
     id: int
     name: str

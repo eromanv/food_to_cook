@@ -37,7 +37,7 @@ dish1 = DishModel(
     ingredients=ingredients1,
     recipe=recipe1,
     kbhju_per_portion=kbhju1,
-    portions=12
+    portions=12,
 )
 
 # Dish 2
@@ -66,7 +66,7 @@ dish2 = DishModel(
     ingredients=ingredients2,
     recipe=recipe2,
     kbhju_per_portion=kbhju2,
-    portions=12
+    portions=12,
 )
 
 # Dish steak
@@ -91,7 +91,7 @@ dish_steak = DishModel(
     ingredients=ingredients_steak,
     recipe=recipe_steak,
     kbhju_per_portion=kbhju_steak,
-    portions=9
+    portions=9,
 )
 
 menu_friday1 = MenuModel(week=1, day="Пятница", dishes=[dish1, dish2, dish_steak])
@@ -120,7 +120,7 @@ dish3 = DishModel(
     ingredients=ingredients3,
     recipe=recipe3,
     kbhju_per_portion=kbhju3,
-    portions=12
+    portions=12,
 )
 
 # Dish 4
@@ -148,7 +148,7 @@ dish4 = DishModel(
     ingredients=ingredients4,
     recipe=recipe4,
     kbhju_per_portion=kbhju4,
-    portions=12
+    portions=12,
 )
 
 menu_monday1 = MenuModel(week=1, day="Понедельник", dishes=[dish3, dish4, dish_steak])
@@ -177,7 +177,7 @@ dish5 = DishModel(
     ingredients=ingredients5,
     recipe=recipe5,
     kbhju_per_portion=kbhju5,
-    portions=12
+    portions=12,
 )
 
 # Dish 6
@@ -204,7 +204,7 @@ dish6 = DishModel(
     ingredients=ingredients6,
     recipe=recipe6,
     kbhju_per_portion=kbhju6,
-    portions=12
+    portions=12,
 )
 
 menu_friday2 = MenuModel(week=2, day="Пятница", dishes=[dish5, dish6, dish_steak])
@@ -232,7 +232,7 @@ dish7 = DishModel(
     ingredients=ingredients7,
     recipe=recipe7,
     kbhju_per_portion=kbhju7,
-    portions=12
+    portions=12,
 )
 
 # Dish 8
@@ -252,17 +252,13 @@ recipe8 = """Нарежьте и обжарьте овощи.
 kbhju8 = KbhuModel(calories=270, protein=19, fat=7, carbs=31)
 
 dish8 = DishModel(
-    id=8,
-    name="Овощное рагу с курицей",
-    ingredients=ingredients8,
-    recipe=recipe8,
-    kbhju_per_portion=kbhju8,
-    portions=12
+    id=8, name="Овощное рагу с курицей", ingredients=ingredients8, recipe=recipe8, kbhju_per_portion=kbhju8, portions=12
 )
 
 menu_monday2 = MenuModel(week=2, day="Понедельник", dishes=[dish7, dish8, dish_steak])
 
 week_menu = WeekMenuModel(menus=[menu_friday1, menu_monday1, menu_friday2, menu_monday2])
+
 
 # Функция для получения сегодняшнего меню
 def get_today_menu() -> MenuModel:
@@ -279,6 +275,7 @@ def get_today_menu() -> MenuModel:
             return menu
     return menu_friday1  # Default
 
+
 # Функция для агрегации ингредиентов
 def aggregate_ingredients(dishes: list[DishModel]) -> dict[str, dict]:
     aggregated = defaultdict(lambda: {"amount": 0, "unit": ""})
@@ -288,6 +285,7 @@ def aggregate_ingredients(dishes: list[DishModel]) -> dict[str, dict]:
                 aggregated[ing.name]["amount"] += ing.amount
                 aggregated[ing.name]["unit"] = ing.unit
     return dict(aggregated)
+
 
 # Функция для покупки на неделю
 def get_week_shopping_list(week: int) -> str:
@@ -300,6 +298,7 @@ def get_week_shopping_list(week: int) -> str:
     for name, data in agg.items():
         shopping_list += f"- {name}: {data['amount']} {data['unit']}\n"
     return shopping_list
+
 
 # Функция для покупки на блюдо
 def get_dish_shopping_list(dish: DishModel) -> str:
