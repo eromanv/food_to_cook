@@ -31,7 +31,12 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
-          cd /path/to/your/project
-          git pull origin main
+          mkdir -p ~/food_cook
+          cd ~/food_cook
+          if [ ! -d .git ]; then
+            git clone git@github.com:eromanv/food_to_cook.git .
+          else
+            git pull origin main
+          fi
           uv sync
           # Restart service, e.g. systemctl restart your-bot
