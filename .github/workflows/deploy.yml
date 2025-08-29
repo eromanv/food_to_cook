@@ -49,14 +49,14 @@ jobs:
           echo "=== Checking git repository ==="
           if [ ! -d .git ]; then
             echo "Cloning repository..."
-            git clone git@github.com:eromanv/food_to_cook.git .
+            git clone https://github.com/eromanv/food_to_cook.git .
             if [ $? -ne 0 ]; then
               echo "ERROR: Git clone failed"
               exit 1
             fi
           else
             echo "Repository exists, pulling latest changes..."
-            git pull origin main
+            git pull https://github.com/eromanv/food_to_cook.git main
             if [ $? -ne 0 ]; then
               echo "ERROR: Git pull failed"
               exit 1
