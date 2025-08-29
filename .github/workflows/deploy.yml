@@ -36,6 +36,11 @@ jobs:
           echo "Current user: $(whoami)"
           echo "Home directory: $HOME"
           
+          echo "=== Setting up SSH ==="
+          mkdir -p ~/.ssh
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          
           echo "=== Creating directory ==="
           mkdir -p ~/food_cook
           cd ~/food_cook
