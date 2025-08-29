@@ -31,12 +31,49 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
+          set -x
+          echo "=== Starting deployment ==="
+          echo "Current user: $(whoami)"
+          echo "Home directory: $HOME"
+          
+          echo "=== Creating directory ==="
           mkdir -p ~/food_cook
           cd ~/food_cook
+          echo "Current directory: $(pwd)"
+          
+          echo "=== Checking git repository ==="
           if [ ! -d .git ]; then
+            echo "Cloning repository..."
             git clone git@github.com:eromanv/food_to_cook.git .
+            if [ $? -ne 0 ]; then
+              echo "ERROR: Git clone failed"
+              exit 1
+            fi
           else
+            echo "Repository exists, pulling latest changes..."
             git pull origin main
+            if [ $? -ne 0 ]; then
+              echo "ERROR: Git pull failed"
+              exit 1
+            fi
           fi
+          
+          echo "=== Checking Python and uv ==="
+          python3 --version
+          if command -v uv &> /dev/null; then
+            uv --version
+          else
+            echo "Installing uv..."
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            export PATH="$HOME/.cargo/bin:$PATH"
+          fi
+          
+          echo "=== Installing dependencies ==="
           uv sync
+          if [ $? -ne 0 ]; then
+            echo "ERROR: uv sync failed"
+            exit 1
+          fi
+          
+          echo "=== Deployment completed successfully ==="
           # Restart service, e.g. systemctl restart your-bot
